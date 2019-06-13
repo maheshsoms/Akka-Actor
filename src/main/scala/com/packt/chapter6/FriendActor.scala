@@ -21,14 +21,11 @@ class FriendActor(friendId: String, r: Recovery) extends
     case SnapshotOffer(_, recoveredState : FriendState) =>
       log.info(s"Snapshot offered: $recoveredState")
       state = recoveredState
-    case RecoveryCompleted => log.info(s"Recovery completed.
-      Current state: $state")
+    case RecoveryCompleted => log.info(s"Recovery completed.Current state: $state")
       }
       val receiveCommand: Receive = {
-      case AddFriend(friend) => persist(FriendAdded(friend))
-      (updateState)
-      case RemoveFriend(friend) => persist(FriendRemoved(friend))
-      (updateState)
+      case AddFriend(friend) => persist(FriendAdded(friend))(updateState)
+      case RemoveFriend(friend) => persist(FriendRemoved(friend))(updateState)
       case "snap" => saveSnapshot(state)
       case "print" => log.info(s"Current state: $state")
   }

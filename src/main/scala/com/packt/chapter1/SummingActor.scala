@@ -1,5 +1,7 @@
 package com.packt.chapter1
 
+import akka.actor.Actor
+
 class SummingActor extends Actor {
 
   var sum=1

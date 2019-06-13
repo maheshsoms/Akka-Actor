@@ -1,5 +1,9 @@
 package com.packt.chapter1
 
+import akka.actor.{Actor, ActorSystem, Props}
+import akka.dispatch.{PriorityGenerator, UnboundedPriorityMailbox}
+import com.typesafe.config.Config
+
 class MyPriorityActor extends Actor {
 
   override def receive: PartialFunction[Any,Unit] = {

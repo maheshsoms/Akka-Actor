@@ -1,6 +1,10 @@
 
 package com.packt.chapter1
 
+import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume}
+import akka.actor.{Actor, ActorRef, ActorSystem, AllForOneStrategy, Props}
+import scala.concurrent.duration._
+
 case class Add(a: Int,b: Int)
 case class Sub(a: Int,b: Int)
 case class Div(a: Int,b: Int)

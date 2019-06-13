@@ -1,4 +1,13 @@
 package com.packt.chapter1
+
+import akka.actor.SupervisorStrategy.{Escalate, Restart}
+import akka.actor.{Actor, ActorRef, ActorSystem, OneForOneStrategy, Props}
+import akka.util.Timeout
+import akka.pattern.ask
+import scala.concurrent.Await
+import scala.concurrent.duration._
+
+
 case object Error
 case class StopActor(actorRef: ActorRef)
 

@@ -6,7 +6,7 @@ object SamplePersistenceApp extends App {
 
   val system = ActorSystem("Persistent-Actor")
 
-  val persistentActor1=system.actorOf(Props[SamplePersistentActor])
+  val persistentActor1=system.actorOf(Props[SamplePersistenceActor])
 
   persistentActor1 ! UserUpdate("Mahesh",Add)
   persistentActor1 ! UserUpdate("Somasundaram",Add)
@@ -19,7 +19,7 @@ object SamplePersistenceApp extends App {
   Thread.sleep(3000)
   system.stop(persistentActor1)
 
-  val persistentActor2=system.actorOf(Props[SamplePersistentActor])
+  val persistentActor2=system.actorOf(Props[SamplePersistenceActor])
   persistentActor2 ! "print"
   Thread.sleep(2000)
   system.terminate()

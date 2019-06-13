@@ -1,5 +1,7 @@
 package com.packt.chapter1
 
+import akka.actor.{Actor, ActorSystem, Props}
+
 case object CreateChild
 case class Greet(msg: String)
 

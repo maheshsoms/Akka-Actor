@@ -1,5 +1,8 @@
 package com.packt.chapter1
 
+import akka.actor.{Actor, ActorSystem, Props}
+import akka.dispatch.ControlMessage
+
 case object MyControlMessage extends ControlMessage
 
 class Logger extends Actor{

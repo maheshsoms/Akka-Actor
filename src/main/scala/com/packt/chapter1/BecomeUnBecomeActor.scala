@@ -1,5 +1,7 @@
 package com.packt.chapter1
 
+import akka.actor.Actor
+
 class BecomeUnBecomeActor extends Actor {
   def receive: Receive = {
     case true => context.become(isStateTrue)

@@ -1,5 +1,7 @@
 package com.packt.chapter1
 
+import akka.actor.{Actor, ActorSystem, PoisonPill, Props}
+
 case object Stop
 
 class ShutdownActor extends Actor {
