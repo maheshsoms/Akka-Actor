@@ -2,7 +2,6 @@ package com.packt.chapter6
 
 import akka.actor.{ActorLogging, Props}
 import akka.persistence.fsm.PersistentFSM
-import com.packt.chapter6.Closed.{Count, DomainEvent, Initialize, LatchDownClosed, LatchDownOpen, Mark, Open}
 
 import scala.reflect.ClassTag
 
