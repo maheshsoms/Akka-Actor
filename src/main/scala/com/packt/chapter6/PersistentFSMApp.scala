@@ -1,7 +1,6 @@
 package com.packt.chapter6
 
 import akka.actor.ActorSystem
-import com.packt.chapter6.Closed.{Initialize, Mark}
 
 object PersistentFSMApp extends App {
  val system=ActorSystem("test")

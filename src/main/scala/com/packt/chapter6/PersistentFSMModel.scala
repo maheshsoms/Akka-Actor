@@ -5,8 +5,7 @@ import akka.persistence.fsm.PersistentFSM.FSMState
 
 sealed trait CountDownLatchState extends FSMState
 case object Closed extends CountDownLatchState { val identifier  = "Closed" }
-“ case object Open extends CountDownLatchState { val identifier =
-  "Open" }
+ case object Open extends CountDownLatchState { val identifier = "Open" }
 
 case class Count(n: Int = -1)
 
