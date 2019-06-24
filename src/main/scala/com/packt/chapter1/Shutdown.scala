@@ -12,15 +12,15 @@ class ShutdownActor extends Actor {
   }
 }
 
-object Shutdown extends App{
-  val actorSystem =ActorSystem("ShutDown")
-  val shutDownActor1=actorSystem.actorOf(Props[ShutdownActor])
+object Shutdown extends App {
+  val actorSystem = ActorSystem("ShutDown")
+  val shutDownActor1 = actorSystem.actorOf(Props[ShutdownActor])
 
   shutDownActor1 ! "hello"
   shutDownActor1 ! PoisonPill
   shutDownActor1 ! "Are you there"
 
-  val shutdownActor2=actorSystem.actorOf(Props[ShutdownActor])
+  val shutdownActor2 = actorSystem.actorOf(Props[ShutdownActor])
 
   shutdownActor2 ! "hello"
   shutdownActor2 ! Stop

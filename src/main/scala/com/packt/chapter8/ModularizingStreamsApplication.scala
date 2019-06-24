@@ -7,13 +7,13 @@ import akka.stream.ActorMaterializer
 import akka.stream.scaladsl._
 import akka.util.ByteString
 
-object ModularizingStreamsApplication extends App{
-  implicit val actorSystem=ActorSystem("Trasnformingstream")
-  implicit val actorMaterializer=ActorMaterializer()
+object ModularizingStreamsApplication extends App {
+  implicit val actorSystem = ActorSystem("Trasnformingstream")
+  implicit val actorMaterializer = ActorMaterializer()
 
-  val MaxGroups=1000
+  val MaxGroups = 1000
 
-  val path=Paths.get("src/main/resources/gzipped-file.gz")
+  val path = Paths.get("src/main/resources/gzipped-file.gz")
 
   val source = FileIO.fromPath(path)
   val gunzip = Flow[ByteString].via(Compression.gunzip())
@@ -22,7 +22,8 @@ object ModularizingStreamsApplication extends App{
   val utf8LowercaseMapper =
     Flow[ByteString].map(_.utf8String.toLowerCase)
   val splitter = Flow[String].mapConcat(_.split(" ").toList)
-  val punctuationMapper = Flow[String].map(_.replaceAll("""
+  val punctuationMapper = Flow[String].map(_.replaceAll(
+    """
 [p{Punct}&&[^.]]""", "").replaceAll(
     System.lineSeparator(), ""))
   val filterEmptyElements = Flow[String].filter(_.nonEmpty)
@@ -34,7 +35,7 @@ object ModularizingStreamsApplication extends App{
 
   val printlnSink = Sink.foreach(println)
 
-  val streamUpperCase=source
+  val streamUpperCase = source
     .via(gunzip)
     .via(utf8UppercaseMapper)
     .via(splitter)
@@ -43,7 +44,7 @@ object ModularizingStreamsApplication extends App{
     .via(wordCountFlow)
     .to(printlnSink)
 
-  val streamLowercase =source
+  val streamLowercase = source
     .via(gunzip)
     .via(utf8UppercaseMapper)
     .via(splitter)

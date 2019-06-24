@@ -5,9 +5,9 @@ import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
 object callback extends App {
-  val future=Future(1+2).mapTo[Int]
+  val future = Future(1 + 2).mapTo[Int]
 
-  future onComplete{
+  future onComplete {
     case Success(result) => println(s"result is ${result}")
     case Failure(failure) => failure.printStackTrace()
   }

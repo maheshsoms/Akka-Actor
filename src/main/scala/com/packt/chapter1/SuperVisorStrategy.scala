@@ -6,29 +6,33 @@ import scala.concurrent.duration._
 
 class Printer extends Actor {
   override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
-      println("Printer: Im restarting becuase of arithmetic expresion")
-    }
-    def receive = {
-      case msg: String => println(s"printer $msg")
-      case msg: Int => 1/0
-    }
+    println("Printer: Im restarting becuase of arithmetic expresion")
   }
-  class IntAdder extends Actor{
-    var x=0
-    def receive = {
-      case msg: Int => x=x+msg
-        println(s"Intadder: sum is $x")
-      case msg: String => throw new IllegalArgumentException
-    }
-    override def postStop(): Unit = {
-      println("IntAdder: Iam getting stopped because i got a string message")
-    }
+
+  def receive = {
+    case msg: String => println(s"printer $msg")
+    case msg: Int => 1 / 0
   }
+}
+
+class IntAdder extends Actor {
+  var x = 0
+
+  def receive = {
+    case msg: Int => x = x + msg
+      println(s"Intadder: sum is $x")
+    case msg: String => throw new IllegalArgumentException
+  }
+
+  override def postStop(): Unit = {
+    println("IntAdder: Iam getting stopped because i got a string message")
+  }
+}
 
 
 class SuperVisorStrategy extends Actor {
 
-    val superVisorStrategy = OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
+  val superVisorStrategy = OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
     case _: ArithmeticException => Restart
     case _: NullPointerException => Resume
     case _: IllegalArgumentException => Resume
@@ -46,8 +50,8 @@ class SuperVisorStrategy extends Actor {
   }
 }
 
-object SuperVisorStrategyApp extends App{
-  val actorSystem =ActorSystem("interactive-messging")
+object SuperVisorStrategyApp extends App {
+  val actorSystem = ActorSystem("interactive-messging")
   actorSystem.actorOf(Props[SuperVisorStrategy]) ! "Start"
 }
 

@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 
 class MyPriorityActor extends Actor {
 
-  override def receive: PartialFunction[Any,Unit] = {
+  override def receive: PartialFunction[Any, Unit] = {
     case x: Int => println(x)
     case x: String => println(x)
     case x: Long => println(x)
@@ -15,8 +15,8 @@ class MyPriorityActor extends Actor {
 }
 
 
-class MyPriorityActorMailBox(settings: ActorSystem.Settings,config: Config) extends UnboundedPriorityMailbox (
-  PriorityGenerator{
+class MyPriorityActorMailBox(settings: ActorSystem.Settings, config: Config) extends UnboundedPriorityMailbox(
+  PriorityGenerator {
     case x: Int => 1
     case x: String => 0
     case x: Long => 2
@@ -26,9 +26,9 @@ class MyPriorityActorMailBox(settings: ActorSystem.Settings,config: Config) exte
 )
 
 
-object MyPriorityMailBox extends App{
-  val actorSystem =ActorSystem("Priority_MailBox")
-  val priorityActor=actorSystem.actorOf(Props[MyPriorityActor].withDispatcher("prio-dispatcher"))
+object MyPriorityMailBox extends App {
+  val actorSystem = ActorSystem("Priority_MailBox")
+  val priorityActor = actorSystem.actorOf(Props[MyPriorityActor].withDispatcher("prio-dispatcher"))
 
   priorityActor ! 6.0
   priorityActor ! 2.33

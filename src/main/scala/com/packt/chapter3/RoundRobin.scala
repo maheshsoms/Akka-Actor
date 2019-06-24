@@ -10,10 +10,11 @@ class RoundRobinPoolActor extends Actor {
     case _ =>
   }
 }
+
 object RoundRobinPoolApp extends App {
-  val actorSystem=ActorSystem("round-robin")
-  val roundRobin=actorSystem.actorOf(RoundRobinPool(5).props(Props[RoundRobinPoolActor]))
-  for (i <- 1 to 10){
+  val actorSystem = ActorSystem("round-robin")
+  val roundRobin = actorSystem.actorOf(RoundRobinPool(5).props(Props[RoundRobinPoolActor]))
+  for (i <- 1 to 10) {
     roundRobin ! s"Hello $i"
   }
 }

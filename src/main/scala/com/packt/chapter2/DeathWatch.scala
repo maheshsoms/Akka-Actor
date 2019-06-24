@@ -3,6 +3,7 @@ package com.packt.chapter2
 import akka.actor.{Actor, ActorSystem, Props, Terminated}
 
 case object Service
+
 case object Kill
 
 class ServiceActor extends Actor {
@@ -10,8 +11,9 @@ class ServiceActor extends Actor {
     case Service => println("I provide a special service")
   }
 }
-class DeathWatchActor extends Actor{
-  val child=context.actorOf(Props[ServiceActor],"serviceActor")
+
+class DeathWatchActor extends Actor {
+  val child = context.actorOf(Props[ServiceActor], "serviceActor")
   context.watch(child)
 
   def receive = {
@@ -21,9 +23,9 @@ class DeathWatchActor extends Actor{
   }
 }
 
-object DeathWatchApp extends App{
-  val actorSystem=ActorSystem("deathwatch")
-  val deathWatchActor =actorSystem.actorOf(Props[DeathWatchActor])
+object DeathWatchApp extends App {
+  val actorSystem = ActorSystem("deathwatch")
+  val deathWatchActor = actorSystem.actorOf(Props[DeathWatchActor])
 
   deathWatchActor ! Service
   deathWatchActor ! Service

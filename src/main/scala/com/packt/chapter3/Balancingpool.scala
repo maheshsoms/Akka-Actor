@@ -11,11 +11,11 @@ class BalancingPoolActor extends Actor {
   }
 }
 
-object balancingpool extends App{
+object balancingpool extends App {
   val actorSytem = ActorSystem("Balancing-pool")
   val router = actorSytem.actorOf(BalancingPool(5).props(Props[BalancingPoolActor]))
 
-  for ( i <- 1 to 5){
+  for (i <- 1 to 5) {
     router ! s"hello $i"
   }
 }

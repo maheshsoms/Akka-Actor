@@ -5,16 +5,16 @@ import akka.routing.{Broadcast, RandomPool}
 
 case object Handle
 
-class SpeciallyHandled extends Actor{
-  override def receive ={
+class SpeciallyHandled extends Actor {
+  override def receive = {
     case Handle => println(s"${self.path.name} says hello")
   }
 
 }
 
 object SpeciallyHandled extends App {
-  val actorSystem=ActorSystem("Specially-Handled")
-  val speciallyHandled=actorSystem.actorOf(RandomPool(5).props(Props[SpeciallyHandled]))
+  val actorSystem = ActorSystem("Specially-Handled")
+  val speciallyHandled = actorSystem.actorOf(RandomPool(5).props(Props[SpeciallyHandled]))
 
   speciallyHandled ! Broadcast(Handle)
   speciallyHandled ! Broadcast(Kill)

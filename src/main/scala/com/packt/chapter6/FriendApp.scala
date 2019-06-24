@@ -2,6 +2,7 @@ package com.packt.chapter6
 
 import akka.actor.ActorSystem
 import akka.persistence.{Recovery, SnapshotSelectionCriteria}
+
 object FriendApp extends App {
   val system = ActorSystem("test")
   val hector = system.actorOf(FriendActor.props("Hector",

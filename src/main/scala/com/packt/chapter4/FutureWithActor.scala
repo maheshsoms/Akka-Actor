@@ -9,18 +9,18 @@ import scala.concurrent.duration._
 
 class ComputationActor extends Actor {
   def receive = {
-    case (a: Int,b: Int) => sender ! (a+b)
+    case (a: Int, b: Int) => sender ! (a + b)
   }
 }
 
-object FutureWithScala extends App{
-  implicit val timeout=Timeout(10 seconds)
-  val actorSystem=ActorSystem("Future-Actor")
-  val computationActor =actorSystem.actorOf(Props[ComputationActor])
+object FutureWithScala extends App {
+  implicit val timeout = Timeout(10 seconds)
+  val actorSystem = ActorSystem("Future-Actor")
+  val computationActor = actorSystem.actorOf(Props[ComputationActor])
 
-  val future=(computationActor ? (2,3)).mapTo[Int]
+  val future = (computationActor ? (2, 3)).mapTo[Int]
 
-  val sum=Await.result(future,10 seconds)
+  val sum = Await.result(future, 10 seconds)
 
   println(s"the value of sum is ${sum}")
 }

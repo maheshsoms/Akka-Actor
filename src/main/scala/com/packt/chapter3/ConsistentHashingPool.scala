@@ -1,35 +1,40 @@
 package com.packt.chapter3
 
 import akka.actor.{Actor, ActorSystem, Props}
-import akka.routing.ConsistentHashingRouter.{ConsistentHashMapping, ConsistentHashable,ConsistentHashableEnvelope}
+import akka.routing.ConsistentHashingRouter.{ConsistentHashMapping, ConsistentHashable, ConsistentHashableEnvelope}
 import akka.routing.ConsistentHashingPool
 
 case class Evict(key: String)
+
 case class Get(key: String) extends ConsistentHashable {
   override def consistentHashKey: Any = key
 }
-case class Entry(key: String,value: String)
 
-class Cache extends Actor{
-  var cache=Map.empty[String,String]
+case class Entry(key: String, value: String)
+
+class Cache extends Actor {
+  var cache = Map.empty[String, String]
+
   def receive = {
-    case Entry(key,value) => println(s"${self.path.name} add key $key")
-      cache+=(key->value)
-    case Get(key)=>
+    case Entry(key, value) => println(s"${self.path.name} add key $key")
+      cache += (key -> value)
+    case Get(key) =>
       println(s"${self.path.name} fetching key $key")
       sender() ! cache.get(key)
     case Evict(key) =>
       println(s"${self.path.name} removing any $key")
-      cache-=key
+      cache -= key
 
   }
 }
 
 object ConsistantHashingpool extends App {
   val actorSystem = ActorSystem("Hello-Akka")
+
   def hashMapping: ConsistentHashMapping = {
     case Evict(key) => key
   }
+
   val cache =
     actorSystem.actorOf(ConsistentHashingPool(10, hashMapping
       = hashMapping).

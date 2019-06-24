@@ -3,6 +3,7 @@ package com.packt.chapter1
 import akka.actor.{Actor, ActorSystem, Props}
 
 case object CreateChild
+
 case class Greet(msg: String)
 
 class ChildActor extends Actor {
@@ -10,17 +11,18 @@ class ChildActor extends Actor {
     case Greet(msg) => println(s"my parent[${self.path.parent}] greeted to me [${self.path}]")
   }
 }
-class ParentActor extends Actor{
+
+class ParentActor extends Actor {
   def receive = {
     case CreateChild =>
-      val child=context.actorOf(Props[ChildActor])
+      val child = context.actorOf(Props[ChildActor])
       child ! Greet("hello Child")
   }
 }
 
 object ParentChild extends App {
-  val actorSystem=ActorSystem("ParentChild-Actor")
-  val parent=actorSystem.actorOf(Props[ParentActor])
+  val actorSystem = ActorSystem("ParentChild-Actor")
+  val parent = actorSystem.actorOf(Props[ParentActor])
 
   parent ! CreateChild
 }
