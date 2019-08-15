@@ -5,11 +5,14 @@ import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.{ read }
 import org.json4s.NoTypeHints
 
+/**
+  * TODO - This is not a Akka Implementation - For now a working JSON API Call
+  */
 
   import dispatch._
   import Defaults._
 
-  object RandomProfile1 {
+  object RandomProfile1ApiCall {
 
 
     def main(args: Array[String]) {
